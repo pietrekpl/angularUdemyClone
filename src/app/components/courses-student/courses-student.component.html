@@ -1,0 +1,111 @@
+<div class="container-fluid">
+  <div class="box">
+    <div class="box-header">
+      <div class="box-header-grid">
+        <div class="box-header-title">These are your subscriptions</div>
+      </div>
+    </div>
+    <div class="box-content">
+      <ng-container *ngIf="pageCourses$ | async as listCourses; else failureOrLoading">
+    <table class="table table-striped table-hover " style="width: 100%">
+      <thead>
+      <tr>
+        <th>Course Id</th>
+        <th>Course Name</th>
+        <th>Course Duration</th>
+        <th>Course Description</th>
+        <th>Instructor</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let c of listCourses.content">
+        <td>{{c.courseId}}</td>
+        <td>{{c.courseName}}</td>
+        <td>{{c.courseDuration}}</td>
+        <td>{{c.courseDescription}}</td>
+        <td>{{c.instructor.firstName}} {{c.instructor.lastName}}</td>
+
+      </tr>
+      </tbody>
+    </table>
+        <ul class="nav nav-pills">
+          <li *ngFor="let item of [].constructor(listCourses.totalPages); let page=index">
+            <a [ngClass]="page==currentPage? 'btn-info': 'btn-outline-info' " (click)="goToPage(page)"
+               class="btn mb-1 ms-1 mt-1">{{page}}</a>
+
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #failureOrLoading>
+        <ng-container *ngIf="errorMessage; else loading">
+          <div class="text-danger">
+            {{errorMessage}}
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          <div class="loader shadow-sm text-muted">
+            <span><i class="fa-solid fa-rotate fa-spin"></i></span> &nbsp; <span>Processing...</span>
+          </div>
+        </ng-template>
+      </ng-template>
+
+    </div>
+  </div>
+  <div class="box">
+    <div class="box-header">
+      <div class="box-header-grid">
+        <div class="box-header-title">Enrolled in these new courses</div>
+      </div>
+    </div>
+    <div class="box-content">
+      <ng-container *ngIf="pageOtherCourses$ | async as listOtherCourses; else otherCoursesFailureOrLoading">
+        <table class="table table-striped table-hover " style="width: 100%">
+          <thead>
+          <tr>
+            <th>Course Id</th>
+            <th>Course Name</th>
+            <th>Course Duration</th>
+            <th>Course Description</th>
+            <th>Instructor</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of listOtherCourses.content">
+            <td>{{c.courseId}}</td>
+            <td>{{c.courseName}}</td>
+            <td>{{c.courseDuration}}</td>
+            <td>{{c.courseDescription}}</td>
+            <td>{{c.instructor.firstName}} {{c.instructor.lastName}}</td>
+            <td>
+              <button (click)="enrollIn(c)"  class="btn btn-primary">
+                Enroll In
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <ul class="nav nav-pills">
+          <li *ngFor="let item of [].constructor(listOtherCourses.totalPages); let page=index">
+            <a [ngClass]="page==otherCoursesCurrentPage? 'btn-info': 'btn-outline-info' " (click)="goToOtherPage(page)"
+               class="btn mb-1 ms-1 mt-1">{{page}}</a>
+
+          </li>
+        </ul>
+
+      </ng-container>
+      <ng-template #otherCoursesFailureOrLoading>
+        <ng-container *ngIf="otherCourseErrorMessage; else loading">
+          <div class="text-danger">
+            {{otherCourseErrorMessage}}
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          <div class="loader shadow-sm text-muted">
+            <span><i class="fa-solid fa-rotate fa-spin"></i></span> &nbsp; <span>Processing...</span>
+          </div>
+        </ng-template>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

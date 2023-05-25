@@ -1,0 +1,232 @@
+<div class="container-fluid">
+  <div class="box">
+    <div class="box-header">
+      <div class="box-header-grid">
+        <div class="box-header-title">Teachers</div>
+        <div class="box-header-button">
+          <div class="btn-group btn-group-sm">
+            <div class="btn btn-sm btn-primary-gradient" (click)="getModal(content)">new teacher</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-content">
+      <ng-container *ngIf="pageInstructors$ | async as listInstructors; else failureOrLoading">
+        <div *ngIf="searchFormGroup" class="mb-2"></div>
+        <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchInstructors()">
+          <div class="input-group w-25">
+            <input type="search" formControlName="keyword" class="form-control rounded mx-2" placeholder="Search"
+                   aria-label="Search">
+            <button type="submit" class="btn btn-outline-primary">Search</button>
+          </div>
+        </form>
+        <table class="table table-striped table-hover" id="example" style="width:100%">
+          <thead>
+          <tr>
+            <th>Instructor Id</th>
+            <th>Instructor First Name</th>
+            <th>Instructor Last Name</th>
+            <th>Instructor Summary</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let i of listInstructors.content">
+            <td>{{i.instructorId}}</td>
+            <td>{{i.firstName}}</td>
+            <td>{{i.lastName}}</td>
+            <td>{{i.summary}}</td>
+            <td>
+              <button (click)="handleDeleteCourse(i)" class="btn btn-danger">
+                <i class="bi-trash"></i>
+              </button>
+            </td>
+            <td>
+              <button (click)="getCoursesModal(i, coursesContent)" class="btn btn-info">
+                Courses
+              </button>
+            </td>
+          </tr>
+
+          </tbody>
+          <tfoot>
+          <tr>
+            <th>Instructor Id</th>
+            <th>Instructor First Name</th>
+            <th>Instructor Last Name</th>
+            <th>Instructor Summary</th>
+          </tr>
+          </tfoot>
+        </table>
+        <ul class="nav nav-pills">
+          <li *ngFor="let item of [].constructor(listInstructors.totalPages); let page=index">
+            <a [ngClass]="page==currentPage? 'btn-info': 'btn-outline-info'" (click)="goToPage(page)"
+               class="btn mb-1 ms-1 mt-1">{{page}}</a>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #failureOrLoading>
+        <ng-container *ngIf="errorMessage; else loading">
+          <div class="text-danger">
+            {{errorMessage}}
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          <div class="loader shadow-sm text-muted">
+            <span><i class="fa-solid fa-rotate fa-spin"></i></span> &nbsp; <span>Processing...</span>
+          </div>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <div class="modal-title text-muted"><i class="fa-regular fa-circle-dot"></i>&nbsp; Instructor Form</div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <form [formGroup]="instructorFormGroup" method="post">
+    <div class="modal-body">
+      <div class="row">
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="text-muted">First Name</label>
+            <input type="text" class="form-control form-font rounded-0 mt-1 mb-3" formControlName="firstName"
+                   [ngClass]="{'is-invalid': submitted && instructorFormGroup.controls['firstName'].errors }">
+            <div *ngIf="submitted && instructorFormGroup.controls['firstName'].errors" class="invalid-feedback">
+              <div *ngIf="instructorFormGroup.controls['firstName'].errors['required']">FirstName is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="text-muted">Last Name</label>
+            <input type="text" class="form-control form-font rounded-0 mt-1 mb-3" formControlName="lastName"
+                   [ngClass]="{'is-invalid': submitted && instructorFormGroup.controls['lastName'].errors }">
+            <div *ngIf="submitted && instructorFormGroup.controls['lastName'].errors" class="invalid-feedback">
+              <div *ngIf="instructorFormGroup.controls['lastName'].errors['required']">LastName is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="text-muted">Summary</label>
+            <input type="text" class="form-control form-font rounded-0 mt-1 mb-3" formControlName="summary"
+                   [ngClass]="{'is-invalid': submitted && instructorFormGroup.controls['summary'].errors }">
+            <div *ngIf="submitted && instructorFormGroup.controls['summary'].errors" class="invalid-feedback">
+              <div *ngIf="instructorFormGroup.controls['summary'].errors['required']">Summary is required</div>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="user">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-muted">Email</label>
+              <input type="email" class="form-control form-font rounded-0 mt-1 mb-3" formControlName="email"
+                     [ngClass]="{'is-invalid': submitted && instructorFormGroup.get('user.email')?.errors }">
+              <div *ngIf="submitted && instructorFormGroup.get('user.email')?.errors" class="invalid-feedback">
+                <div *ngIf="instructorFormGroup.get('user.email')!.errors?.['required']">Email is required</div>
+                <div *ngIf="instructorFormGroup.get('user.email')!.errors?.['pattern']">Please enter a valid email</div>
+                <div *ngIf="instructorFormGroup.get('user.email')!.errors?.['emailAlreadyExists']">Email already in use</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-muted">Password</label>
+              <input type="password" class="form-control form-font rounded-0 mt-1 mb-3" formControlName="password"
+                     [ngClass]="{'is-invalid': submitted && instructorFormGroup.get('user.password')?.errors }">
+              <div  *ngIf="submitted && instructorFormGroup.get('user.password')?.errors" class="invalid-feedback" >
+                <div *ngIf="instructorFormGroup.get('user.password')!.errors?.['required']">Password is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="onCloseModal(modal)">Close</button>
+      <button type="button" class="btn btn-sm btn-primary" (click)="onSaveInstructor(modal)">Save changes</button>
+    </div>
+  </form>
+
+
+
+
+</ng-template>
+<ng-template #coursesContent let-coursesModal>
+  <div class="modal-header">
+    <div class="modal-title text-muted"><i class="fa-regular fa-circle-dot"></i>&nbsp; Instructor Courses</div>
+    <button type="button" class="btn-close" aria-label="Close" (click)="coursesModal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="box-content">
+      <ng-container *ngIf="pageCourses$ | async as listCourses; else failureOrLoading">
+        <div *ngIf="searchFormGroup" class="mb-2">
+          <form [formGroup]="searchFormGroup" >
+            <div class="input-group w-25">
+              <input type="search" formControlName="keyword" class="form-control round mx-2" placeholder="Search"
+                     aria-label="Search">
+              <button type="submit" class="btn btn-outline-primary">Search</button>
+            </div>
+          </form>
+
+        </div>
+        <table class="table table-striped table-hover"  style="width:100%">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Description</th>
+            <th>Instructor</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of listCourses.content">
+            <td>{{c.courseId}}</td>
+            <td>{{c.courseName}}</td>
+            <td>{{c.courseDuration}}</td>
+            <td>{{c.courseDescription}}</td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Course Duration</th>
+            <th>Course Description</th>
+            <th>Instructor</th>
+          </tr>
+          </tfoot>
+        </table>
+        <ul class="nav nav-pills">
+          <li *ngFor="let item of [].constructor(listCourses.totalPages); let page=index">
+            <a [ngClass]="page==currentPage? 'btn-info': 'btn-outline-info' " (click)="goToCoursePage(page)"
+               class="btn mb-1 ms-1 mt-1">{{page}}</a>
+
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #failureOrLoading>
+        <ng-container *ngIf="errorMessage; else loading">
+          <div class="text-danger">
+            {{errorMessage}}
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          <div class="loader shadow-sm text-muted">
+            <span><i class="fa-solid fa-rotate fa-spin"></i></span> &nbsp; <span>Processing...</span>
+          </div>
+
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</ng-template>

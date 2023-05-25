@@ -1,1 +1,393 @@
-/* You can add global styles to this file, and also import other style files */
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-size: 14px;
+    /* background-color: #ECF0F2; */
+    background: linear-gradient(45deg,#F21A2B,#E787F2);
+}
+
+
+.body-dark,
+.header-dark {
+    background-color: #42424A;
+}
+
+.header-dark .top-menu ul li a {
+    color: #Fff;
+}
+
+.header-dark ul li a {
+    color: #FFF;
+}
+
+header {
+    position: fixed;
+    background-color: #FFF;
+    right: 0px;
+    left: 0px;
+    z-index: 900;
+}
+
+
+.wrapper,
+.header {
+    display: grid;
+    grid-template-columns: 240px auto;
+    align-items: center;
+}
+
+.aside {
+    background: linear-gradient(195deg,#42424a,#191919);
+    height: 100vh;
+    overflow: auto;
+    padding-top: 60px;
+}
+
+.main {
+    height: 100vh;
+    overflow: auto;
+    padding-top: 60px;
+}
+
+.main-header menu {
+    text-align: right;
+}
+
+
+ul {
+    margin-bottom: 0px;
+    padding-left: 0px;;
+}
+
+
+.aside-header {
+    background-color: #42424a;
+    color:#FFF;
+    padding: 8px 0px;
+    font-family: roboto;
+}
+
+.aside-header span {
+    font-size: 19px;
+}
+
+
+
+.aside nav ul li {
+    list-style: none;
+}
+
+
+.aside nav ul li a{
+    margin-bottom: 10px;
+    padding: 10px 10px;
+    border-radius: 4px;
+    color: #FFF;
+    display: block;
+    text-decoration: none;
+    opacity: .6;
+}
+
+
+.aside nav ul li a.active,
+.aside nav ul li a.active:hover{
+    background: linear-gradient(195deg,#ec407a,#d81b60);
+    opacity: 1;
+}
+
+
+.aside nav ul li a:hover{
+    transition: .35 ease-in;
+    background: rgba(255, 255, 255, 0.253);
+    opacity: 1;
+}
+
+.aside nav ul li a span {
+    width: 17px;
+    display: inline-block;
+}
+
+
+.box {
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+
+.dataTables_length {
+    padding-left: 10px;
+    padding-top: 20px;
+}
+
+.dataTables_filter {
+    padding-right: 10px;
+    padding-top: 20px;
+}
+
+
+.dataTables_info {
+    padding-left: 10px;
+}
+
+.pagination{
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+
+.box-header {
+    padding: 10px;
+    color: #344767b9;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+
+.paginate_button,
+.page-item  {
+    font-size: 13px;
+}
+
+
+
+.page-item .page-link{
+	font-size: 13px !important;
+}
+
+
+.box-header-grid {
+	display: flex;
+	justify-content:flex-end;
+	align-items: center;
+}
+
+.box-header-title {
+	margin-right:auto;
+}
+
+.btn-primary-gradient {
+    background: linear-gradient(195deg,#49a3f1,#1a73e8);
+    color:rgb(255, 255, 255);
+    border: none;
+}
+
+
+.btn-primary-gradient:hover {
+    background: linear-gradient(-195deg,#49a3f1,#1a73e8);
+    color:rgb(255, 255, 255);
+}
+
+
+.btn-success-gradient {
+    background: linear-gradient(195deg,#66bb6a,#43a047);
+    color:rgb(255, 255, 255);
+    border: none;
+}
+
+
+.btn-success-gradient:hover {
+    background: linear-gradient(-195deg,#66bb6a,#43a047);
+    color:rgb(255, 255, 255);
+}
+
+
+
+.btn-danger-gradient {
+    background: linear-gradient(195deg,#ec407a,#d81b60);
+    color:rgb(255, 255, 255);
+    border: none;
+}
+
+
+.btn-danger-gradient:hover {
+    background: linear-gradient(-195deg,#ec407a,#d81b60);
+    color:rgb(255, 255, 255);
+}
+
+
+
+
+.btn-dark-gradient {
+    background: linear-gradient(195deg,#42424a,#191919);
+    color:rgb(255, 255, 255);
+    border: none;
+}
+
+
+.btn-dark-gradient:hover {
+    background: linear-gradient(-195deg,#42424a,#191919);
+    color:rgb(255, 255, 255);
+}
+
+
+.box-footer {
+    padding: 10px;
+}
+
+
+.dash {
+    background-color: #FFF;
+    border-radius: 4px;
+}
+
+.dash-content {
+    display: grid;
+    grid-template-columns: 50px auto;
+    align-items: center;
+    gap: 20px;
+}
+
+.dash-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 4px;
+}
+
+.dash-content {
+    border-bottom: 1px solid #eee;
+    padding: 20px;
+}
+
+.dash-description {
+    padding: 10px 20px;
+}
+
+.dash-info-number {
+    font-size: 20px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+
+.main-header-menu {
+    display: grid;
+    grid-template-columns: 300px auto;
+    align-items: center;
+}
+
+
+.top-menu {
+    text-align: right;
+}
+
+.top-menu ul li {
+    display: inline-block;
+    padding-left: 20px;
+    color: rgba(0, 0, 0, 0.644);
+    font-size: 13px;
+}
+
+.top-menu ul li a {
+    text-decoration: none;
+    color:inherit;
+}
+
+.bread a {
+    text-decoration: none;
+    font: 13px;
+}
+
+.form-font {
+    font-size: 13px;
+}
+
+.loader {
+	background: white;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	padding: 5px 10px;
+	border-radius: 100px;
+	user-select: none;
+	cursor: pointer;
+	z-index: 9000;
+}
+
+#uploadArea {
+	border: 2px dashed rgba(41, 128, 185,1.0);
+	padding: 70px 0px;
+	text-align: center;
+	background: rgba(41, 128, 185,0.05);
+
+}
+
+#fileLabel:hover {
+	color: rgba(0, 0, 0, 1);
+}
+
+#fileLabel {
+	cursor: pointer;
+	display: inline-block;
+	color: rgba(0, 0, 0, 0.5);
+}
+
+
+.table-blue {
+    background-color: #F1EAF2;
+    border-bottom: #F1EAF2;;
+    color: #FFF;
+}
+
+.table-blue tr,
+.table-blue tr td {
+    background-color: #F1EAF2;
+    color: #FFF;
+}
+
+
+.table-blue thead tr,
+.table-blue tfoot tr {
+    background: #F1EAF2;
+    border-bottom: 0px solid #F1EAF2;
+    color: black;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .wrapper,
+    .header {
+        display: block;
+        grid-template-columns: none;
+        align-items: none;
+    }
+
+    .aside{
+        display: none;;
+    }
+
+
+    .main-header-menu {
+        display: block;
+        grid-template-columns: 120px auto;
+        align-items: center;
+        font-size: 12px;
+        padding: 10px 0px;
+    }
+
+    .box {
+        display: none;
+    }
+
+    .bread {
+        display: none;;
+    }
+
+
+    .main {
+        padding-top: 100px;
+    }
+
+
+}
